@@ -83,6 +83,8 @@ CONTROLNET_MODELS=( )
 
 DIFFUSION_MODELS=(
   "https://civitai.com/api/download/models/2745638?type=Model&format=SafeTensor&size=full&fp=bf16"
+  "https://civitai.com/api/download/models/2513182?type=Model&format=SafeTensor&size=pruned&fp=fp8"
+  "https://civitai.com/api/download/models/2555652?type=Model&format=SafeTensor&size=full&fp=fp8"
 )
 
 
