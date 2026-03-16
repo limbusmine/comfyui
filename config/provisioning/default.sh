@@ -24,14 +24,12 @@ CHECKPOINT_MODELS=(
 )
 
 CLIP_VISION_MODELS=(
-  "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors?download=true"
 )
 
 UNET_MODELS=(      
 )
 
 LORA_MODELS=( 
-  "https://huggingface.co/Kijai/WanVideo_comfy/resolve/8697fbd00bf062350864a3ff431b077fbc62886d/Lightx2v/lightx2v_I2V_14B_480p_cfg_step_distill_rank128_bf16.safetensors?download=true"
 )
 
 VAE_MODELS=(    
@@ -46,7 +44,6 @@ CONTROLNET_MODELS=( )
 
 DIFFUSION_MODELS=(
   "https://civitai.com/api/download/models/2745638?type=Model&format=SafeTensor&size=full&fp=bf16"
-  "https://civitai.com/api/download/models/2580860?type=Model&format=SafeTensor&size=pruned&fp=bf16"
 )
 
 TEXT_ENCODER_MODELS=(
