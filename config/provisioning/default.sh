@@ -230,61 +230,42 @@ provisioning_download_to_dir() {
   local final_url="$url"
   local auth_header=""
 
-  local hf_token
-  hf_token="$(get_hf_token)"
-
-  if [[ -n "$hf_token" ]] && [[ "$url" =~ huggingface\.co ]]; then
-    auth_header="Authorization: Bearer ${hf_token}"
+  # 1. 환경변수의 CIVITAI_TOKEN을 그대로 사용해 URL 완성
+  if [[ -n "${CIVITAI_TOKEN:-}" ]] && [[ "$url" =~ civitai\.com ]]; then
+    if [[ "$url" == *"?"* ]]; then
+      final_url="${url}&token=${CIVITAI_TOKEN}"
+    else
+      final_url="${url}?token=${CIVITAI_TOKEN}"
+    fi
   fi
 
-  # 수정됨: URL 파라미터 대신 헤더 변수에 토큰 저장
-  if [[ -n "${CIVITAI_TOKEN:-}" ]] && [[ "$url" =~ civitai\.com ]]; then
-    auth_header="Authorization: Bearer ${CIVITAI_TOKEN}"
+  # 2. Hugging Face 토큰 처리 (헤더 사용)
+  local hf_token
+  hf_token="$(get_hf_token)"
+  if [[ -n "$hf_token" ]] && [[ "$url" =~ huggingface\.co ]]; then
+    auth_header="Authorization: Bearer ${hf_token}"
   fi
 
   log "Downloading into $dir"
   log "  from: $final_url"
 
-  # ---- HuggingFace: try hf_transfer path first ----
+  # ---- HuggingFace: hf_transfer 시도 ----
   if [[ "$url" =~ huggingface\.co ]]; then
     if provisioning_hf_transfer_download "$dir" "$final_url"; then
       return 0
-    else
-      log "HF (hf_transfer) unavailable/failed -> fallback to aria2/wget/curl"
     fi
   fi
 
-  # ---- Civitai: use content-disposition ----
-  # 수정됨: aria2c, wget, curl 명령어에 auth_header 적용
+  # ---- Civitai: aria2 버그를 피하기 위해 curl로 강제 다운로드 ----
   if [[ "$url" =~ civitai\.com ]]; then
     set +e
-    if command -v aria2c >/dev/null 2>&1; then
-      if [[ -n "$auth_header" ]]; then
-        aria2c -x 16 -s 16 -k 1M --content-disposition --header="$auth_header" -d "$dir" "$final_url"
-      else
-        aria2c -x 16 -s 16 -k 1M --content-disposition -d "$dir" "$final_url"
-      fi
-      rc=$?
-    elif command -v wget >/dev/null 2>&1; then
-      if [[ -n "$auth_header" ]]; then
-        wget --header="$auth_header" --content-disposition --show-progress -qnc -P "$dir" "$final_url"
-      else
-        wget --content-disposition --show-progress -qnc -P "$dir" "$final_url"
-      fi
-      rc=$?
-    else
-      if [[ -n "$auth_header" ]]; then
-        (cd "$dir" && curl -fL -H "$auth_header" -OJ "$final_url")
-      else
-        (cd "$dir" && curl -fL -OJ "$final_url")
-      fi
-      rc=$?
-    fi
+    (cd "$dir" && curl -fL -OJ "$final_url")
+    local rc=$?
     set -e
     return $rc
   fi
 
-  # ---- General/HF fallback: save as URL basename ----
+  # ---- General/HF fallback ----
   local name="${url%%\?*}"
   name="${name##*/}"
 
