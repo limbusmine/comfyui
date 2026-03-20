@@ -29,7 +29,29 @@ CLIP_VISION_MODELS=(
 UNET_MODELS=(      
 )
 
-LORA_MODELS=( 
+LORA_MODELS=(
+  "https://civitai.com/api/download/models/1830928?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2755464?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2752690?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/1713963?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2119560?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2785675?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2708479?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2535194?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/1392526?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/1141616?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/1295107?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/1365950?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2077670?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2610673?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2004458?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/1174168?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2675599?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2620818?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2662335?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2653217?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2653410?type=Model&format=SafeTensor"
+  "https://civitai.com/api/download/models/2676843?type=Model&format=SafeTensor"
 )
 
 VAE_MODELS=(    
@@ -43,7 +65,7 @@ UPSCALE_MODELS=(
 CONTROLNET_MODELS=( )
 
 DIFFUSION_MODELS=(
-  "https://civitai.com/api/download/models/2745638?type=Model&format=SafeTensor&size=full&fp=bf16"
+  "https://civitai.com/api/download/models/2514310?type=Model&format=SafeTensor&size=pruned&fp=fp16"
 )
 
 TEXT_ENCODER_MODELS=(
